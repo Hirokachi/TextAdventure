@@ -135,7 +135,8 @@ int main() {
 				//Sets the text for the room and tells you your exits and 
 				//coordinates
 				std::cout << "You find yourself at a dead end. ";
-				std::cout << "You notice that there is a small but seemingly "; std::cout << "out of place small chest near the north wall. ";
+				std::cout << "You notice that there is a small but seemingly ";
+				std::cout << "out of place small chest near the north wall. ";
 				std::cout << "(hint: try 'open chest'.) Your exits are:\n";
 				possibleExits(coordinateX, coordinateY);
 				std::getline(std::cin, command);
