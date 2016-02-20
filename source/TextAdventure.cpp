@@ -14,20 +14,28 @@ std::string isValidDirection (int coordinateX, int coordinateY){
 	
 	//This loop validates if your direction/exit is a valid 
 	//direction/exit and if you typed a valid direction/exit name.
-	do {
+do {
+                //reset the user flag to true.
 		isValid = true;
+                //prompt the user for direction.
 		std::getline(std::cin, direction);
-		if ((!gameField[coordinateX + 1][coordinateY] || !gameField[coordinateX][coordinateY + 1] 
-			|| !gameField[coordinateX][coordinateY - 1] || !gameField[coordinateX - 1][coordinateY]) 
-			&& (direction == "North" || direction == "South" || direction == "East" || direction == "West")) {
-			std::cout << "You can't go that way. Please try a different way.\n";
+                //this verifies that the direction and the point in the multi-dimensional array in 
+                //that direction is marked as false meaning that the user cannot go that way. 
+                //allow the user to reenter the direction they want to go.
+		if ((!gameField[coordinateX + 1][coordinateY] && direction == "South" ) 
+                        || (!gameField[coordinateX][coordinateY + 1] && direction == "East")
+			|| (!gameField[coordinateX][coordinateY - 1] && direction == "North")
+                        || (!gameField[coordinateX - 1][coordinateY] &&  direction == "West") {
+		        std::cout << "You can't go that way. Please try a different way.\n";
 			isValid = false;	
 		}
-		else if (direction != "North" && direction != "South" && direction != "East" && direction != "West") {
+                //Otherwise if the direction is not a valid direction then allow the user to reenter it.
+		else if (direction != "North" && direction != "South" && direction != "East" 
+                           && direction != "West") {
 			std::cout << "That is not a valid Direction. Please Try again.\n";
 			isValid = false;
 		}
-	} while (isValid == false);
+	} while (!isValid);
 	
 	return (direction);
 }
