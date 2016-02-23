@@ -65,7 +65,8 @@ std::string isValidDirection ( bool gameField[6][6], int coordinateX, int coordi
  */
 int main() {
 	//The first answer to start the game.
-	std::string answer = "non";
+	std::string generateMap = "non";
+	std::string mapSize = "non";
 	
 	//Flags to end the game and open a door.
 	bool isNotOut = true;
@@ -79,100 +80,128 @@ int main() {
 	std::string direction = "";
 	std::string command = "";
 	
-	//gamefield (map of moveable areas, moveable areas are set as true.)
-	bool gameField[6][6] = { {false, false, false, false, false, false}, {false, true, true, false, false, false},
-		{false, false, true, false, true, false}, {false, true, true, false, true, false}, 
-		{false, true, true, true, true, false}, {false, false, false, false, false, false} };
-
-	//This is text to welcome the player
-	std::cout << "Welcome to Text Adventure!\n";
-
-	//This loop validates the input for starting the game.
+	//Asks the player/user if map should be randomly generated or pregenerated.
 	do {
-		if (answer == "non") {
-			std::cout << "Shall we get started?\n";
-			std::getline(std::cin, answer);
+		if (generateMap == "non") {
+			std::cout << "Before we get started, please let me know if you want a pregenerated or random map.";
+			std::getline(std::cin, generateMap);
 		}
-		else {
-			std::cout << "That is not a valid answer.\n";
-			std::cout << "Please answer yes or no.\n";
-			std::getline(std::cin, answer);
+		else if (generateMap != "pregenerated" && generateMap != "random") {
+			std::cout << "That is not a valid answer. Please answer either pregenerated or random.";
+			std::getline(std::cin, generateMap);
 		}
-	} while (answer != "yes" && answer != "no");
+	} while (generateMap != "pregenerated" && generateMap != "random");
+	
+	//Asks the player/user if the map should be either a small, medium or large map and tells
+	// the player/user how many blocks a small, medium or large maps are.
+	do {
+		if (mapSize == "non") {
+			std::cout << "Before we get started, please let me know if you want the map to be small, medium or large.\n";
+			std::cout << "Small is a 6x6 block box.\n";
+			std::cout << "Medium is a 10x10 block box.\n";
+			std::cout << "Large is a 15x15 block box.\n";
+			std::getline(std::cin, mapSize);
+		}
+		else if (mapSize != "small" || mapSize != "large" || mapSize != "medium") {
+			std::cout << "That is not a valid answer. Please answer either small, medium or large.\n";
+			std::getline(std::cin, mapSize);
+		}
+	} while (mapSize != "small" && mapSize != "large" && mapSize != "medium");
+	
+	
+	if (mapSize == "small" && generateMap == "pregenerated") {
+		//gamefield (map of moveable areas, moveable areas are set as true.)
+		bool gameField[6][6] = { {false, false, false, false, false, false},
+			{false, true, true, false, false, false}, {false, false, true, false, true, false},
+			{false, true, true, false, true, false}, {false, true, true, true, true, false},
+			{false, false, false, false, false, false} };
 
-	//This loop is where the game actually starts
-	while (answer == "yes" && isNotOut) {
-		
-		//Sets the text for the starting point and tells you your exits and 
-		//coordinates.
-		if (coordinateX == 1 && coordinateY == 1) {
-			std::cout << "You find yourself in a cage. Your exits are:\n";
-			possibleExits(gameField, coordinateX, coordinateY);		
-		}
+		//This is text to welcome the player
+		std::cout << "Welcome to Text Adventure!\n";
+
+		//This loop is where the game actually starts
+		while (isNotOut) {
 			
-		//After verifying that the direction/exit is valid this block of if
-		//statements does the moving and printing of the next room.
-		if ( direction == "South") {
-			coordinateY++;
-			if (coordinateX == 4 && coordinateY == 3) {
-				std::cout << "You bump in to a locked door!\n";
-				coordinateY--;
+			//Sets the text for the starting point and tells you your exits and 
+			//coordinates.
+			if (coordinateX == 1 && coordinateY == 1 && direction != "North" 
+						&& direction != "South" && direction != "East" 
+						&& direction != "West") {
+				std::cout << "You find yourself in a cage. Your exits are:\n";
+				possibleExits(gameField, coordinateX, coordinateY);		
 			}
-			else {
-				//Sets the text for the room and tells you your exits and 
-				//coordinates
-				std::cout << "You find yourself in a Hallway. Your exits are:\n";
-				possibleExits(gameField, coordinateX, coordinateY);	
-			}
-			
-		}
-		else if (direction == "East") {
-			coordinateX++;
-			//Sets the text for the room and tells you your exits and 
-		    //coordinates
-			std::cout << "You find yourself in a Hallway. Your exits are:\n";
-			possibleExits(gameField, coordinateX, coordinateY);	
-		}
-		else if (direction == "North") {
-			coordinateY--;
-			//Sets the text for the room and tells you your exits and 
-		    //coordinates
-			std::cout << "You find yourself in a Hallway. Your exits are:\n";
-			possibleExits(gameField, coordinateX, coordinateY);	
-		}
-		else if (direction == "West") {
-			coordinateX--;
-			if (coordinateX == 0 && coordinateY == 3) {
-				//Sets the text for the room and tells you your exits and 
-				//coordinates
-				std::cout << "You find yourself at a dead end. ";
-				std::cout << "You notice that there is a small but seemingly ";
-				std::cout << "out of place small chest near the north wall. ";
-				std::cout << "(hint: try 'open chest'.) Your exits are:\n";
-				possibleExits(gameField, coordinateX, coordinateY);	
-				std::getline(std::cin, command);
-				if (command == "open chest") {
-					std::cout << "Upon opening the chest, you find a key and "; std::cout << "take the key.\n";
-					hasKey = true;
+				
+			//After verifying that the direction/exit is valid this block of if
+			//statements does the moving and printing of the next room.
+			if ( direction == "South") {
+				coordinateY++;
+				if (coordinateX == 5 && coordinateY == 3) {
+					//Sets the text for the room and tells you your exits and 
+					//coordinates
+					std::cout << "You find yourself at a dead end. ";
+					std::cout << "You notice that there is a small but seemingly ";
+					std::cout << "out of place small chest near the north wall. ";
+					std::cout << "(hint: try 'open chest'.) Your exits are:\n";
+					possibleExits(gameField, coordinateX, coordinateY);	
+					std::getline(std::cin, command);
+					if (command == "open chest") {
+						std::cout << "Upon opening the chest, you find a key and "; std::cout << "take the key.\n";
+						hasKey = true;
+					}
+				}
+				else {
+					//Sets the text for the room and tells you your exits and 
+					//coordinates
+					std::cout << "You find yourself in a Hallway. Your exits are:\n";
+					possibleExits(gameField, coordinateX, coordinateY);
 				}
 			}
-			else {
+			else if (direction == "East") {
+				coordinateX++;
 				//Sets the text for the room and tells you your exits and 
 				//coordinates
 				std::cout << "You find yourself in a Hallway. Your exits are:\n";
 				possibleExits(gameField, coordinateX, coordinateY);	
 			}
-		}
+			else if (direction == "North") {
+				coordinateY--;
+				//Sets the text for the room and tells you your exits and 
+				//coordinates
+				if (coordinateX == 5 && coordinateY == 5) {
+					std::cout << "You bump in to a locked door!\n";
+					coordinateY++;
+				}
+				else if (coordinateX == 1 && coordinateY == 1) {
+					std::cout << "You find yourself in a cage. Your exits are:\n";
+					possibleExits(gameField, coordinateX, coordinateY);		
+				}
+				else {
+					std::cout << "You find yourself in a Hallway. Your exits are:\n";
+					possibleExits(gameField, coordinateX, coordinateY);	
+				}
+			}
+			else if (direction == "West") {
+				coordinateX--;
+				//Sets the text for the room and tells you your exits and 
+				//coordinates
+				std::cout << "You find yourself in a Hallway. Your exits are:\n";
+				possibleExits(gameField, coordinateX, coordinateY);
+			}
 
-		//validates the direction/exit.
-		direction = isValidDirection(gameField, coordinateX, coordinateY);
-		
-		//This if statement checks to see if you got to the end point and ends 
-		//the game.
-		if (coordinateX == 5 && coordinateY == 3) {
-			std::cout << "You find the exit!\n Congradulations! You climb out of the dungeon! You win!\n";
-			isNotOut = false;
+			//validates the direction/exit.
+			direction = isValidDirection(gameField, coordinateX, coordinateY);
+			
+			//This if statement checks to see if you got to the end point and ends 
+			//the game.
+			if (coordinateX == 5 && coordinateY == 3) {
+				std::cout << "You find the exit!\n Congradulations! You climb out of the dungeon! You win!\n";
+				isNotOut = false;
+			}
 		}
 	}
+	else {
+		std::cout << "no other options exist at this time.\n";
+	}
+
 	return 0;
 }
