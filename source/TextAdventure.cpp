@@ -2,9 +2,9 @@
 #include <String>
 #include <vector>
 
-std::string isValidDirection ( bool gameField[6][6], int coordinateX, int coordinateY);
-void possibleExits (bool gameField[6][6], int coordinateX, int coordinateY);
-std::vector<std::vector <bool>>  randomMap (std::string mapSize);
+std::string isValidDirection (std::vector<std::vector <bool>> gameField, int coordinateX, int coordinateY);
+void possibleExits (std::vector<std::vector <bool>> gameField, int coordinateX, int coordinateY);
+std::vector<std::vector <bool>>  randomMapGenerator (std::string mapSize);
  
 /**
  * Where the program starts.
