@@ -1,5 +1,3 @@
-#include <iostream> //maybe not needed?
-#include <string>   //maybe not needed?
 #include "GameField.h"
 
  
@@ -10,18 +8,20 @@ int main() {
 	//The first answer to start the game.
 	std::string randomize = "non";
 	std::string mapSize = "non";
+	char anykey;
+	GameField gamemap = new GameField ();
 	
 	//This is text to welcome the player
 	std::cout << "Welcome to Text Adventure!\n";
 	
-	//Asks the player/user if map should be randomly generated or pregenerated.
+	//Asks the player/user if map should be randomly generated or not.
 	do {
 		if (randomize == "non") {
-			std::cout << "Before we get started, please let me know if you want a pregenerated or random map.\n";
+			std::cout << "Before we get started, please answer yes or no for a random map.\n";
 			std::getline(std::cin, randomize);
 		}
 		else if (randomize != "no" && randomize != "yes") {
-			std::cout << "That is not a valid answer. Please answer either pregenerated or random.\n";
+			std::cout << "That is not a valid answer. Please answer either yes or no for random map.\n";
 			std::getline(std::cin, randomize);
 		}
 	} while (randomize != "no" && randomize != "yes");
@@ -31,39 +31,52 @@ int main() {
 	do {
 		if (mapSize == "non") {
 			std::cout << "Before we get started, please let me know if you want the map to be small, medium or large.\n";
-			std::cout << "small is a 5x5 room box.\n";
-			std::cout << "medium is a 10x10 room box.\n";
-			std::cout << "large is a 15x15 room box.\n";
+			std::cout << "Your options are:\n"
+			std::cout << "small, which has 25 total rooms.\n";
+			std::cout << "medium, which has 100 total rooms.\n";
+			std::cout << "large, which has 225 total rooms.\n";
 			std::getline(std::cin, mapSize);
 		}
 		else if (mapSize != "small" || mapSize != "large" || mapSize != "medium") {
 			std::cout << "That is not a valid answer. Please answer either small, medium or large.\n";
+			std::cout << "The options again are:\n"
+			std::cout << "small, which has 25 total rooms.\n";
+			std::cout << "medium, which has 100 total rooms.\n";
+			std::cout << "large, which has 225 total rooms.\n";
 			std::getline(std::cin, mapSize);
 		}
 	} while (mapSize != "small" && mapSize != "large" && mapSize != "medium");
 	
+	//Generate gamemap connections based on player input.
 	if (mapSize == "small" && randomize == "yes") {
-		generateGameMap (5, true); 
+		gamemap.generateGameMap (25, true); 
 	}
 	else if (mapSize == "medium" && randomize == "yes") {
-		
-		generateGameMap (10, true); 
+		gamemap.generateGameMap (100, true); 
 	}
 	else if (mapSize == "large" && randomize == "yes") {
-		generateGameMap (15, true);
+		gamemap.generateGameMap (225, true);
 	}
 	else if (mapSize == "small" && randomize == "no") {
-		generateGameMap (5, false); 
+		gamemap.generateGameMap (25, false); 
 	}
 	else if (mapSize == "medium" && randomize == "no") {
-		generateGameMap (10, false) 
+		gamemap.generateGameMap (100, false) 
 	}
 	else if (mapSize == "large" && randomize == "no") {
-		generateGameMap (15, false) 
+		gamemap.generateGameMap (225, false) 
 	}
 	
-	
-	std::cout<<"End of game :)";
+	do{
+		//Simulate walking...
+		gamemap.directionalMove ();
+		
+	}while (gamemap.hasNotWon ());
+
+	//End of game text :D!!
+	std::cout << "Congrates, you have won! :D\n";
+	std::cout << "Press any key to continue:\n";
+	std::cin >> anykey;
 
 	return 0;
 }
