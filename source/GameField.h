@@ -3,22 +3,31 @@
 #include<iostream>
 
 /**
- * class room - stores room name and description.
+ * class playerPosition stores the uniqueID of the current room.
+ */
+class playerPosition {
+	int room.uniqueID;
+}
+ 
+/**
+ * class room - stores room uniqueID, name, isStart, isEnd, and description.
  */
 class room {
+	int uniqueID;
 	std::string name;
 	std::string desc;
+	bool isStart;
+	bool isEnd;
 };
 
 /**
- * struct roomConnections - template that stores connections between rooms.
+ * struct roomConnections - template that stores the connections
+ *				 between rooms and in what direction.
  */
 struct roomConnections {
  	room firstRoomName;
 	room secondRoomName;
-	bool isConnected;
-	bool isBackTrackable;
-	bool isPlayerInRoom;
+	enum directionalExits { north, south, east, west };
 };
 
 /**
@@ -26,11 +35,7 @@ struct roomConnections {
  * has private variables:
  * listOfRooms - a list of rooms that can exist in the subset for
  *				the gameField in the game
- * connections - a list of the first & second rooms that have two
- * 				flags that indicate either the connection between
- * 				the two rooms in question is there or not and/or
- *				the connection is backtrackable. *Connections make
- *				the room a real room in the gameField.*
+ * connections - a list of the first & second rooms (i.e. ab) and a valid exit
  * %might have more variables%
  * has methods:
  * void directionalMove - verifies players move is  valid 
@@ -39,7 +44,8 @@ struct roomConnections {
  * 						gameMap connections between rooms and randomized
  *						start and end location.
  * private bool isWinnable - verifies the gameMap configuration is winnable.
- * bool hasNotWon - checks to see if player has made it to end-point
+ * private bool hasNotWon - checks to see if player has made it to end-point
+ * private printRoomDesc (room:uniqueID) - Prints room's description when player enters room.
  * %might have more methods%
  */
 class gameField {
@@ -52,67 +58,62 @@ class gameField {
 	* moves from one room to another when valid.
 	*/
 	void directionalMove () {
+		//Define the variable storeing player choice
 		std::string move;
 		
-		//do { //Maybe the do-while loop isn't needed either...
+		//get direction from player.
 		std::getline (std::cin, move);
 		
-		for (connections.validmove: std::string valid) {
-			if (0 != move.compare(valid)) {
-				std::cout<< "That is not a valid move to move.\n";
-				std::cout<< "Please try again.\n";
-				std::getline (std::cin, move);
-			}
-			/* else {
-				//not sure how to exit this when a valid move occurs
-			} */
-		}
+		//Check if direction has a valid connection from the room they are in.
+		//Move player into room from that direction.
+		//Print out new Room Description.
 		
-		//Not sure how to move the user turn off the flag in the previous
-		//room and turn on the flag in the next room and show description
-		//the movement and new room.
-
-		// } while (0 != move.compare(connections.validmove));
 	}
 	
 	/*
-	* void generateGameMap (size, randomize):
+	* void generateGameMap (totalRooms, randomize):
 	*	loads the list of rooms and generates 
 	* 	gameMap connections between rooms and randomized
 	*	start and end location.
 	*/
-	void generateGameMap (std::string size, bool randomize) {
+	void generateGameMap (int totalRooms, bool randomize) {
 		
-		//Load room description and name/id from file into
-		//the listOfRooms.
+		//Load room description and name/id from file into the listOfRooms.
 		
 		//for player input:
-		//	Generate the connections between rooms
-		//	Generate start and end positions
+		//	for the total number of Rooms:
+		//		Generate the connections between rooms
+		//	Generate start and end positions and set in the room
 		//	run test verify if connections create a route to start to end
 		// 	store as the current connected gameMap
 		//  or load a pregenerated map of said size and store
 		
 	}
 	/*
-	* private bool isWinnable - verifies the gameMap configuration is winnable.
+	* private bool isWinnable - verifies the gameMap configuration 
+	*					is winnable.
 	*/
 	private bool isWinnable () {
 		
 		//run from startpoint to end-point to see if a valid route exists.
 		
-		return (true);
+		return (true //true if there is a connection from startpoint to end otherwise false);
 	}
 	
 	/*
-	* bool hasNotWon - checks to see if player has made it to end-point
+	* private bool hasNotWon - is at the room that is marked at Endpoint.
 	*/
-	bool hasNotWon () {
+	private bool hasNotWon () {
 		
-		//check if player position matches the end-point
-		//return true if they did, return false if not
-		
-		return (true);
+		return (true //false if player position matches the room with isEnd marked true);
+	}
+	
+	/*
+	* private printRoomDesc (int uniqueID) - Prints room's 
+	*			description when player enters room.
+	*/
+	private void printRoomDesc (int uniqueID) {
+		//print room Description based on uniqueID.
 	}
 }
 	
