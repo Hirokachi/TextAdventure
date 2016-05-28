@@ -6,8 +6,8 @@
  * class playerPosition stores the uniqueID of the current room.
  */
 class playerPosition {
-	int room.uniqueID;
-}
+	int uniqueID;
+};
  
 /**
  * class room - stores room uniqueID, name, isStart, isEnd, and description.
@@ -48,10 +48,30 @@ struct roomConnections {
  * private printRoomDesc (room:uniqueID) - Prints room's description when player enters room.
  * %might have more methods%
  */
-class gameField {
-	std::list listOfRooms <room>;
-	std::list connections <roomConnections>;
+class GameField {
+
+	std::list<room> listOfRooms;
+	std::list<roomConnections> connections;
 	
+	/*
+	* private bool isWinnable - verifies the gameMap configuration 
+	*					is winnable.
+	*/
+	bool isWinnable () {
+		
+		
+		return (true /*true if there is a connection from startpoint to end otherwise false*/ );
+	}
+
+	/*
+	* private printRoomDesc (int uniqueID) - Prints room's 
+	*			description when player enters room.
+	*/
+	void printRoomDesc (int uniqueID) {
+		//print room Description based on uniqueID.
+	}
+
+public:
 	/*
 	* Function/method directionalMove:
 	* takes input for one of the possible exits for room & validates &
@@ -89,31 +109,12 @@ class gameField {
 		//  or load a pregenerated map of said size and store
 		
 	}
-	/*
-	* private bool isWinnable - verifies the gameMap configuration 
-	*					is winnable.
-	*/
-	private bool isWinnable () {
-		
-		//run from startpoint to end-point to see if a valid route exists.
-		
-		return (true //true if there is a connection from startpoint to end otherwise false);
-	}
 	
 	/*
 	* private bool hasNotWon - is at the room that is marked at Endpoint.
 	*/
-	private bool hasNotWon () {
+	bool hasNotWon () {
 		
-		return (true //false if player position matches the room with isEnd marked true);
+		return (true /*false if player position matches the room with isEnd marked true*/);
 	}
-	
-	/*
-	* private printRoomDesc (int uniqueID) - Prints room's 
-	*			description when player enters room.
-	*/
-	private void printRoomDesc (int uniqueID) {
-		//print room Description based on uniqueID.
-	}
-}
-	
+};
