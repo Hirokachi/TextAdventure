@@ -7,7 +7,6 @@ int main() {
 	//The first answer to start the game.
 	std::string randomize = "non";
 	std::string mapSize = "non";
-	char anykey;
 	GameField gamemap;
 	
 	//This is text to welcome the player
@@ -48,34 +47,35 @@ int main() {
 	
 	//Generate gamemap connections based on player input.
 	if (mapSize == "small" && randomize == "yes") {
-		gamemap.generateGameMap (25, true); 
+		gamemap.generateGameMap(25, true); 
 	}
 	else if (mapSize == "medium" && randomize == "yes") {
-		gamemap.generateGameMap (100, true); 
+		gamemap.generateGameMap(100, true); 
 	}
 	else if (mapSize == "large" && randomize == "yes") {
-		gamemap.generateGameMap (225, true);
+		gamemap.generateGameMap(225, true);
 	}
 	else if (mapSize == "small" && randomize == "no") {
-		gamemap.generateGameMap (25, false); 
+		gamemap.generateGameMap(25, false); 
 	}
 	else if (mapSize == "medium" && randomize == "no") {
-		gamemap.generateGameMap (100, false); 
+		gamemap.generateGameMap(100, false); 
 	}
 	else if (mapSize == "large" && randomize == "no") {
-		gamemap.generateGameMap (225, false);
+		gamemap.generateGameMap(225, false);
 	}
 	
 	do{
 		//Simulate walking...
-		gamemap.directionalMove ();
+		gamemap.directionalMove();
 		
-	}while (gamemap.hasNotWon ());
+	}while (gamemap.hasNotWon());
 
 	//End of game text :D!!
+	std::string anystring;
 	std::cout << "Congrates, you have won! :D\n";
-	std::cout << "Press any key to continue:\n";
-	std::cin >> anykey;
+	std::cout << "Press any string (ending or only the newline char) to continue:\n";
+	std::getline(std::cin, anystring);
 
 	return 0;
 }

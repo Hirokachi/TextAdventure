@@ -1,0 +1,7 @@
+uniqueID: 1
+Room_name: arglegarble
+Description: Arghh the room has ArgleGarble all over the walls.
+
+uniqueID: 2
+Room_name: Blah Blah
+Description: Oh no! one of the rooms walls is talking at you, but all you hear is "Blah Blah Blah"!

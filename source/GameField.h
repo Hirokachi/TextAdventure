@@ -1,11 +1,13 @@
 #include<list>
 #include<string>
 #include<iostream>
+#include<fstream>
 
 /**
  * class playerPosition stores the uniqueID of the current room.
  */
 class playerPosition {
+public:
 	int uniqueID;
 };
  
@@ -52,13 +54,27 @@ class GameField {
 
 	std::list<room> listOfRooms;
 	std::list<roomConnections> connections;
+
+//public:
+//	GameField () {
+//		std::string line;
+//		std::ifstream myfile("roomsfile.txt");
+//		if (myfile.is_open()) {
+//			while (std::getline(myfile, line)) {
+//				std::cout << line << '\n';
+//			}
+//			myfile.close();
+//		}
+//		else
+//			std::cout << "Unable to open file.";
+//	}
 	
+//private:
 	/*
 	* private bool isWinnable - verifies the gameMap configuration 
 	*					is winnable.
 	*/
 	bool isWinnable () {
-		
 		
 		return (true /*true if there is a connection from startpoint to end otherwise false*/ );
 	}
@@ -78,12 +94,18 @@ public:
 	* moves from one room to another when valid.
 	*/
 	void directionalMove () {
+
 		//Define the variable storeing player choice
 		std::string move;
-		
+
+		//printRoomDesc (playerPosition.uniqueID);
+
+		//Tell the player they can move now.
+		std::cout << "Please enter a direction.\n";
+
 		//get direction from player.
 		std::getline (std::cin, move);
-		
+
 		//Check if direction has a valid connection from the room they are in.
 		//Move player into room from that direction.
 		//Print out new Room Description.
@@ -115,6 +137,6 @@ public:
 	*/
 	bool hasNotWon () {
 		
-		return (true /*false if player position matches the room with isEnd marked true*/);
+		return (false /*false if player position matches the room with isEnd marked true*/);
 	}
 };
