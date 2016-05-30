@@ -22,14 +22,17 @@ class room {
 	bool isEnd;
 };
 
-/**
- * struct roomConnections - template that stores the connections
- *				 between rooms and in what direction.
- */
+//Commands that are available for player (only has directions
+enum class commandlist : char { n, s, e, w };
+
+/*
+* struct roomConnections - template that stores the connections
+*				 between rooms and in what direction.
+*/
 struct roomConnections {
  	room firstRoomName;
 	room secondRoomName;
-	enum directionalExits { north, south, east, west };
+	std::list<char> exits;
 };
 
 /**
@@ -94,9 +97,10 @@ public:
 	* moves from one room to another when valid.
 	*/
 	void directionalMove () {
+		commandlist directions;
 
 		//Define the variable storeing player choice
-		std::string move;
+		char move;
 
 		//printRoomDesc (playerPosition.uniqueID);
 
@@ -104,9 +108,15 @@ public:
 		std::cout << "Please enter a direction.\n";
 
 		//get direction from player.
-		std::getline (std::cin, move);
+		std::cin >> move;
 
-		//Check if direction has a valid connection from the room they are in.
+		//Check if command is valid
+		if (directions::n == move) {
+			std::cout << "You did try to move North which means that I program correctly. Hurray for me!!!";
+		}
+		else {
+			std::cout << "You didn't try to move north you silly player. Boo, I don't know how to use enums to hold commands.";
+		}
 		//Move player into room from that direction.
 		//Print out new Room Description.
 		
