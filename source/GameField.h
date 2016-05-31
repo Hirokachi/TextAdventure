@@ -2,6 +2,7 @@
 #include<string>
 #include<iostream>
 #include<fstream>
+//#include <sstream>
 
 /**
  * class playerPosition stores the uniqueID of the current room.
@@ -23,7 +24,10 @@ class room {
 };
 
 //Commands that are available for player (only has directions
-enum class commandlist : char { n, s, e, w };
+class commandList {
+public:
+	enum { north=1, south, east, west };
+};
 
 /*
 * struct roomConnections - template that stores the connections
@@ -97,25 +101,36 @@ public:
 	* moves from one room to another when valid.
 	*/
 	void directionalMove () {
-		commandlist directions;
 
 		//Define the variable storeing player choice
-		char move;
+		 std::string move;
+		 int directionalNumber = 0 ;
 
 		//printRoomDesc (playerPosition.uniqueID);
 
 		//Tell the player they can move now.
-		std::cout << "Please enter a direction.\n";
+		std::cout << "Please enter a direction. In this case 1 = north, 2 = south, etc.\n ";
 
 		//get direction from player.
-		std::cin >> move;
-
+		std::getline (std::cin, move);
+		
+		//convert direction to number because binary '==' operation for enum doesn't work for strings.
+		do {
+			std::getline (std::cin, move);
+			if (move.compare("north") == 0)
+				directionalNumber = 1;
+			else {
+				std::cout << "You didn't type north; Please try again.";
+			}
+		}while (move != "north" || directionalNumber != 0);
+		//move.erase; (move.find_last_not_of (" \t") + +1);
+		//istringstream ss (move);
 		//Check if command is valid
-		if (directions::n == move) {
-			std::cout << "You did try to move North which means that I program correctly. Hurray for me!!!";
+		if (commandList::north == directionalNumber) {
+			std::cout << "You did try to move North which means that I program correctly. Hurray for me!!!\n";
 		}
 		else {
-			std::cout << "You didn't try to move north you silly player. Boo, I don't know how to use enums to hold commands.";
+			std::cout << "You didn't try to move north you silly player. Boo, I don't know how to use enums to hold commands.\n";
 		}
 		//Move player into room from that direction.
 		//Print out new Room Description.
