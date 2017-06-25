@@ -79,3 +79,7 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+.vs/slnx.sqlite
+.vs/TextAdventure/v15/Browse.VC.db
+.vs/TextAdventure/v15/Browse.VC.opendb
+.vs/TextAdventure/v15/ipch/AutoPCH/8227591b/TEXTADVENTURE-b681285a/TEXTADVENTURE.ipch
